@@ -2,12 +2,11 @@
 	<head>
 		<title>Task List</title
 
-		<!-- jQuery -->
-		<link rel="stylesheet" href="http://code.jquery.com/jquery-2.1.4.js">
-
 		<!-- Bootstrap CDN -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+		<!-- Favicon -->
+		<link rel="icon" href="../favicon.ico">
 
 		<style>
 				html, body {
