@@ -61,7 +61,7 @@ warpspeed site:create php warpspeed-slim.dev --force
 ```
 ## Configure your .env.php file
 
-This Slim sample project uses the PHP Data Object (PDO) wrapped in a Task model to read from and write to your MySQL database. Pursuant to convention and best practices, the environment variables required as arguments to instantiate a new PDO object are declared externally from the web root `public/` directory. To complete the requisite fields of the .env.php file, run the following commands:
+This Slim sample project uses the PHP Data Object (PDO) wrapped in an generic object model to read from and write to your MySQL database. The `BaseModel.php` class located in the `models/` directory is designed similarly to Laravel's [Eloquent ORM](http://laravel.com/docs/5.0/eloquent). Read the source code comments for further details on implementation and funtionality. Pursuant to convention and best practices, the environment variables required as arguments to instantiate a new PDO object are declared externally from the web root `public/` directory. To complete the requisite fields of the .env.php file, run the following commands:
 
 ```
 # RUN THESE COMMANDS FROM YOUR LOCAL MACHINE

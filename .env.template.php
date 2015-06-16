@@ -1,8 +1,10 @@
 <?php
 
-	return array(define('DB_HOST', ''),
-				 define('DB_NAME', ''),
-				 define('DB_USER', ''),
-				 define('DB_PASS', ''));
+	return array('DB_HOST' => '',
+				 'DB_NAME' => '',
+				 'DB_USER' => '',
+				 'DB_PASS' => '',
+				 'MODE'    => '');
+
 
 ?>
