@@ -73,8 +73,8 @@
 					<ul>
 					<?php foreach($tasks as $task): ?>
 							<li>
-								<form class="form-complete" action="<?= "/tasks/" . $task['id']. "/toggle-complete" ?>" method="POST">
-										<?php if( $task['is_complete']): ?>
+								<form class="form-complete" action="<?= "/tasks/" . $task->id. "/toggle-complete" ?>" method="POST">
+										<?php if( $task->is_complete): ?>
 											<button class="btn btn-success">
 												<span class="glyphicon glyphicon-ok-circle"></span>
 										<?php else: ?>
@@ -83,10 +83,10 @@
 										<?php endif; ?>
 									</button>
 								</form>
-								<?php if($task['is_complete']): ?>
-									<span><s><?= $task['name'] ?></s></span>
+								<?php if($task->is_complete): ?>
+									<span><s><?= $task->name ?></s></span>
 								<?php else: ?>
-									<span><?= $task['name'] ?></span>
+									<span><?= $task->name ?></span>
 								<?php endif; ?>
 							</li>
 					<?php endforeach; ?>

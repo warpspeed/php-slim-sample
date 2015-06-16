@@ -37,41 +37,61 @@ class Model
 
 		public function save()
 		{
-			if(!empty($this->attributes))
+			if (!empty($this->attributes))
 			{
-				isset($this->attributes['id']) ? $this->update() : $this->insert();
+				$attributes = $this->attributes;
+				$id = null;
+
+				if (isset($attributes['id']))
+				{
+					$id = $attributes['id'];
+					unset($attributes['id']);
+				}
+
+				$attributeNames = array_keys($this->attributes);
+				$attributeValues = array_values($this->attributes);
+
+				if ($id)
+				{
+					// existing record, perform update
+					$query = 'UPDATE ' . static::$table . ' SET ';
+
+					foreach ($attributeNames  as $attributeName)
+					{
+						$query .= "$attributeName = ?, ";
+					}
+
+					$query = substr($query, 0, -2); // remove trailing ', '
+					$query .= ' WHERE id = ?';
+					$stmt = self::$dbc->prepare($query);
+
+					array_push($attributeValues, $id); // add id to end of array
+
+					$stmt->execute(array_values($attributeValues));
+				}
+				else
+				{
+					// new record, perform insert
+					$query = 'INSERT INTO ' . static::$table . ' (';
+					$params = '';
+
+					foreach ($attributeNames  as $attributeName)
+					{
+						$query .= "$attributeName, ";
+						$params .= '?, ';
+					}
+
+					$query = substr($query, 0, -2); // remove trailing ', '
+					$params = substr($params, 0, -2); // remove trailing ', '
+
+					$query .= ") values ($params)";
+					$stmt = self::$dbc->prepare($query);
+
+					$stmt->execute(array_values($attributeValues));
+
+					$this->attributes['id'] = self::$dbc->lastInsertId(); // add id to instance
+				}
 			}
-		}
-
-		protected function update()
-		{
-			$stmt = self::$dbc->prepare(static::$update);
-
-			foreach($this->attributes as $attribute => $value)
-			{
-				$type = is_numeric($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
-				$stmt->bindValue(":$attribute", $value, $type);
-			}
-
-			$stmt->execute();
-		}
-
-		protected function insert()
-		{
-
-			$stmt = self::$dbc->prepare(static::$insert);
-
-			foreach($this->attributes as $attribute => $value)
-			{
-				$type = is_numeric($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
-				$stmt->bindValue(":$attribute", $value, $type);
-			}
-
-			$stmt->execute();
-
-			$stmt = self::$dbc->prepare("SELECT id FROM " . static::$table . " ORDER BY id DESC LIMIT 1");
-			$insertedTask = $stmt->fetch(PDO::FETCH_ASSOC);
-			$this->attributes['id'] = $insertedTask['id'];
 		}
 
 		public static function delete($id)
@@ -87,16 +107,18 @@ class Model
 		{
 			self::dbConnect();
 
+			$instance = null;
+
 			$stmt = self::$dbc->prepare("SELECT * FROM " . static::$table . " WHERE id = :id");
 			$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 			$stmt->execute();
-			$results = $stmt->fetch(PDO::FETCH_ASSOC);
+			$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			$instance = null;
-			if($results)
+
+			if($result)
 			{
 				$instance = new static;
-				$instance->attributes = $results;
+				$instance->attributes = $result;
 			}
 
 			return $instance;
@@ -106,7 +128,22 @@ class Model
 		{
 			self::dbConnect();
 
-			return self::$dbc->query('SELECT * FROM ' . static::$table . ' ORDER BY id DESC;')->fetchAll(PDO::FETCH_ASSOC);
+			$instances = array();
+			$stmt = self::$dbc->prepare('SELECT * FROM ' . static::$table . ' ORDER BY id DESC;');
+			$stmt->execute();
+			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			if ($results)
+			{
+				foreach ($results as $result)
+				{
+					$instance = new static;
+					$instance->attributes = $result;
+					array_push($instances, $instance);
+				}
+			}
+
+			return $instances;
 		}
 	}
 

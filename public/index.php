@@ -18,9 +18,9 @@ $app->get('/', function() use ($app) {
 
 $app->post('/tasks', function() use ($app) {
 
-    if(empty($_POST['name'])) {
+    if(empty($_POST['name']))
+    {
         $app->redirect('/');
-
         exit;
     }
 
