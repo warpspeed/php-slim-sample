@@ -18,7 +18,7 @@ To clone the repository to your local machine (not in your VM), use the followin
 # RUN THIS COMMAND FROM YOUR LOCAL ENVIRONMENT
 
 cd ~/Sites
-git clone git@github:YOUR_USERNAME/php-slim-sample.git warpspeed-slim.dev
+git clone git@github.com:YOUR_USERNAME/php-slim-sample.git warpspeed-slim.dev
 ```
 
 ## Create a Database
