@@ -79,10 +79,10 @@ nano .env.php
 <?php
 
    return array(
+   'DB_HOST' => 'localhost',
    'DB_NAME' => 'tasks_db',
    'DB_USER' => 'tasks_user',
    'DB_PASS' => 'password123',
-   'DB_HOST' => 'localhost',
    'MODE'    => 'DEVELOPMENT');
 
 ?>
