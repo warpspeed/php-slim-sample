@@ -97,7 +97,7 @@
 
 		<footer>
 			<div class="container">
-				<p class="text-muted">Deployed with <a href="https://warpspeed.io">WarpSpeed.io</a> by <a href="https://turnerlogic.com">Turner Logic</a></p>
+				<p class="text-muted">Deployed with <a href="https://warpspeed.io">WarpSpeed.io</a> by <a href="http://turnerlogic.com">Turner Logic</a></p>
 			</div>
 		</footer>
 	</body>
