@@ -37,7 +37,7 @@
 		}
 
 		.container {
-			width: 680px;
+			max-width: 680px;
 		}
 
 		</style>
