@@ -102,7 +102,7 @@ Slim ulilizes Composer to manage its dependencies. To install the required libra
 # RUN THESE COMMANDS FROM YOUR VM
 
 # cd to your project's root directory
-# and install Silex via Composer
+# and install Slim via Composer
 cd ~/sites/warpspeed-slim.dev
 composer install
 
@@ -113,7 +113,7 @@ mysql -u tasks_user -p tasks_db < sql/create_tasks_table.sql
 Enter password: password123
 ```
 
-The SQL statement used to generate the `tasks` table is located in `~/Sites/warpspeed-silex.dev/sql/`.
+The SQL statement used to generate the `tasks` table is located in `~/Sites/warpspeed-slim.dev/sql/`.
 
 ## Add a Hosts File Entry
 
@@ -125,13 +125,19 @@ To access your new Slim site, you will need to add an entry to your hosts file o
 # open a terminal and run the following command (for Mac)
 sudo nano /etc/hosts
 
+# using git bash or similar, must be run as admin (windows)
+notepad /c/Windows/System32/Drivers/etc/hosts
+
+# using command prompt, must be run as admin (windows)
+notepad C:\Windows\System32\Drivers\etc\hosts
+
 # add this line to the end of the file
 192.168.88.10 warpspeed-slim.dev
 
 # exit and save
 ```
 
-Now, whenever you access "warpspeed-slim.dev" in the browser, you will be directed to your Silex site within your VM.
+Now, whenever you access "warpspeed-slim.dev" in the browser, you will be directed to your Slim site within your VM.
 
 ## Restart your Site and Celebrate
 Finally, we need to reload the site configuration to finalize and effectuate our changes. To do so, perform the following:
@@ -159,16 +165,16 @@ sudo nano /var/log/nginx/error.log
 sudo tail -f /var/log/nginx/error.log
 ```
 
-If the error appears unique to PHP, view the `warpspeed-silex.dev-error.log`. To do so, run the following commands: 
+If the error appears unique to PHP, view the `warpspeed-slim.dev-error.log`. To do so, run the following commands: 
 
 ```
 # RUN THESE COMMANDS FROM YOUR VM
 
 # open the site's error log
-sudo nano /var/log/php/warpspeed-silex.dev-error.log
+sudo nano /var/log/php/warpspeed-slim.dev-error.log
 
 # ...or keep an open tab of the site's error log
-sudo tail -f /var/log/php/warpspeed-silex.dev-error.log
+sudo tail -f /var/log/php/warpspeed-slim.dev-error.log
 ```
 
 # License

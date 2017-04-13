@@ -4,16 +4,21 @@ require '../vendor/autoload.php';
 require __DIR__ . '/../models/Task.php';
 $_ENV = require __DIR__ . '/../.env.php';
 
-$app = new \Slim\Slim(array(
+$app = new \Slim\App(array(
         "MODE" => $_ENV['MODE'],
         "TEMPLATES.PATH" => './templates'
     ));
 
-$app->get('/', function() use ($app) {
+$container = $app->getContainer();
+$container['renderer'] = function($container) {
+    return new \Slim\Views\PhpRenderer('./templates/');
+};
+
+$app->get('/', function($request, $response) use ($app) {
 
     $tasks = Task::all();
 
-    $app->render('template.php', ['tasks' => $tasks]);
+    $this->renderer->render($response, 'template.php', ['tasks' => $tasks]);
 });
 
 $app->post('/tasks', function() use ($app) {
