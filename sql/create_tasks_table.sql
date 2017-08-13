@@ -4,4 +4,5 @@ CREATE TABLE IF NOT EXISTS tasks (
 	`updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 	`is_complete` tinyint(1) NOT NULL DEFAULT '0',
-	PRIMARY KEY (`id`))
+	PRIMARY KEY (`id`)
+)
